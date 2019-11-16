@@ -1,0 +1,99 @@
+{% extends "@Game/layout.html.twig" %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="css/fightarea.css">
+{% endblock %}
+
+{% block main_page %}
+    <div class="container">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10" style="background-color:yellow;text-align: center;">
+                <div class="area">
+                    <div class="me"></div>
+                    <div class="enemy"></div>
+                    <div class="fire"></div>
+                    <div class="electro"></div>
+                    <div class="score">
+                    </div>
+                </div>
+                <a href="{{ path('worldmap') }}"><div class="return">Back to WorldMap</div></a>
+                <div class="info">
+                    <p class="my_hp_info">My HP: 100</p>
+                    <p class="enemy_hp_info">Enemy HP: 100</p>
+                    <p>Your max attack: {{ app.session.get('strength') }}</p>
+                    <p class="enemystrength"></p>
+                </div>
+
+                <div class="auto">
+                    <p>ATTACK!</p>
+                    <div class="attack"></div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{%  block js %}
+    {{ parent() }}
+    <script>
+        {% set key = 0 %}
+        {% for films in movies %}
+        {% if position == key  %}
+            $('.enemy').css('background-image', 'url( {{ films.Poster}} )');
+            var enemyuron = parseInt({{ films.max_attack }});
+        {% endif %}
+        {% set key = key + 1 %}
+        {% endfor %}
+        $('.enemystrength').text("Enemy max attack: " + enemyuron);
+
+        var attackPressed = false;
+        var my_life = 100;
+        var enemy_life = 100;
+        var count_attack = 0;
+
+        $('.attack').click(function(){
+            if (attackPressed)
+                return ;
+            attackPressed = true;
+            $('.auto p').css('background','orange');
+
+            var enemy_uron = getRandomInt(enemyuron);
+            var myuron = getRandomInt(parseInt({{ app.session.get('strength') }}));
+
+            my_life = parseInt(my_life) - enemy_uron;
+            enemy_life = parseInt(enemy_life) - myuron;
+
+            $('.my_hp_info').text('My HP: ' + my_life);
+            $('.enemy_hp_info').text('Enemy HP: ' + enemy_life);
+
+            if (enemy_life <= 0) {
+                alert('Congrats! You kill him!');
+                $.post( "{{ path('inactive') }}", {position: {{position}} });
+                window.location.href = '/worldmap';
+            }
+            else if (my_life <= 0){
+                alert('Game over. You are dead :(');
+                $.post( "{{ path('clear') }}", {} );
+                window.location.href = '/';
+            }
+
+            attackAction(my_life,enemy_life,myuron,enemy_uron);
+            setTimeout(function(){
+                $('.auto p').css('background','none');
+                attackPressed = false;
+            },500);
+        });
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        function attackAction(my_life,enemy_life,myuron,enemy_uron){
+            let attackresult = "<p class='innerscore'><span style='color: #78ff9b;font-size: 23px;'>"+ (++count_attack) +")</span><span style=\"color: #00ff00\">You</span> attacked the <span style=\"color: red\">Enemy</span> with " + myuron + " strength and left him "+enemy_life+"</p>" +
+                "<p style='border-bottom: 1px solid white;' class='innerscore'><span style=\"color: red\">Enemy</span> attacked <span style=\"color: #00ff00\">You</span> with "+enemy_uron+" strength and left you "+my_life+"</p>";
+            $('.score').prepend(attackresult);
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,51 @@
+.field{
+    width:200px;
+    height: 200px;
+    border: 2px solid black;
+    position: relative;
+}
+.inline{
+    display: inline-block;
+}
+.pokeball{
+    position: absolute;
+    width:200px;
+    height:200px;
+    top:0;
+    left:0;
+    background-image:url(../pokeball.png);
+    background-size: 100% 100%;
+}
+
+#fight{
+    background-image:url(../fight.png);
+    background-size: 100% 100%;
+    width: 70px;
+    height:70px;
+    border: 5px solid #a08686;
+    margin: 5px auto;
+}
+
+#list{
+    width:300px;
+    height:400px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    border: 3px solid grey;
+    background:#eceaff;
+    overflow-y: auto;
+}
+.min{
+    min-width: 1200px;
+}
+
+.return{
+    width: 120px;
+    height: 50px;
+    border: 2px solid red;
+    background: orangered;
+    color: white;
+    margin-top:5px;
+    margin: 0 auto;
+}

@@ -1,0 +1,109 @@
+.row > div{
+    height:1000px;
+    background: green;
+
+}
+.row{
+    min-width: 1150px;
+}
+
+.area{
+    height: 800px;
+    border: 2px solid black;
+    background-image: url(../area.jpg);
+    background-size: 100% 100%;
+    position: relative;
+    margin-top: 10px;
+}
+
+.me, .enemy{
+    position: absolute;
+    border: 2px solid black;
+    width: 200px;
+    height: 300px;
+    bottom: 150px;
+    background-size:100% 100%;
+}
+
+.me{
+    border: none;
+    left: 150px;
+    background-image: url(../Pock.png);
+}
+
+.enemy{
+    right: 150px;
+    /*background-image: url(enemy.png);*/
+}
+
+.fire{
+    position: absolute;
+    bottom: 350px;
+    left:350px;
+    border: 5px solid orangered;
+    border-radius: 100px;
+    width: 220px;
+    height:50px;
+    background-image: url(../fire2.gif);
+    background-size: 100% 100%;
+}
+
+.electro{
+    position: absolute;
+    bottom: 250px;
+    left:350px;
+    border: 5px solid deepskyblue;
+    border-radius: 100px;
+    width: 220px;
+    height:50px;
+    background-image: url(../electro.gif);
+    background-size: 100% 100%;
+    transform: scaleX(-1);
+}
+.attack{
+    background-image: url(../attack.png);
+    background-size: 100% 100%;
+    width:150px;
+    height:150px;
+}
+
+.auto{
+    color: red;
+    font-style: italic;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    width: 150px;
+    margin: 0 auto;
+}
+
+.score{
+    position: absolute;
+    top: 120px;
+    left: 320px;
+    width: 290px;
+    height: 225px;
+    overflow-y: auto;
+}
+
+.innerscore{
+    padding-left:3px;
+    width:275px;
+    word-wrap: break-word;
+    color:white;
+    font-size: 18px;
+
+}
+
+.return{
+    width: 120px;
+    height: 50px;
+    border: 2px solid red;
+    background: orangered;
+    color: white;
+    margin-top:5px;
+    float: left;
+}
+
+.info{
+    float: right;
+    color: #5eb5e0;
+}
